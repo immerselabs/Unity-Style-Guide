@@ -360,19 +360,15 @@ Declare all member variables at the top of a class, with static variables at the
 ```
 namespace ProjectName
 {
-	/// <summary>  
-	/// Brief summary of what the class does
-	/// </summary>
+    /// <summary>  
+    /// Brief summary of what the class does
+    /// </summary>
     public class Account
     {
-      #region Fields
       
       [Tooltip("Public variables set in the Inspector, should have a Tooltip")]
       public static string BankName;
-      
-	  /// <summary>  
-	  /// They should also have a summary
-	  /// </summary>
+ 
       public static decimal Reserves;
  
       public string Number {get; set;}
@@ -380,11 +376,7 @@ namespace ProjectName
       public DateTime DateClosed {get; set;}
       public decimal Balance {get; set;}
 
-      private float _timeToDie;
-      
-	  #endregion
-	 
-	  #region Methods
+      private float timeToDie
 	  
       public Account()
       {
@@ -395,6 +387,19 @@ namespace ProjectName
     }
 }
 ```
+	
+
+#### Regions
+	
+```	 
+#region AnnoyingCode
+	/// Foldable code region
+#endregion
+```
+	
+Avoid Regions, or use sparingly.
+	
+If the class is too long that you have to use a region, then the class is likely too big, doing more than one thing, and needs to be seperated.
 
 #### Script Templates
 To save some time you can overwrite Unity's default script template with your own  to automatically setup the namespace and regions etc. See this Unity [support](https://support.unity3d.com/hc/en-us/articles/210223733-How-to-customize-Unity-script-templates) article to learn how.
@@ -417,9 +422,9 @@ public class` inside the main class however this can have a performance impact. 
 ```
 [[Serializable](https://docs.unity3d.com/ScriptReference/Serializable.html)]
 public struct PlayerStats
-	{
-        public int MovementSpeed;
-    }
+{
+	public int MovementSpeed;
+}
     
 [FoldoutGroup("Interactable")]
 public int MovementSpeed = 1;
@@ -707,12 +712,9 @@ Bad examples:
 #### All Public Functions Should Have A Summary
 Simply, any function that has an access modifier of Public should have its summary filled out. 
 ```
-/// <summary>
-/// Fire a gun
-/// </summary>
 public void Fire()
 {
-// Fire the gun.
+	// Fire the gun.
 }
 ```
 **[⬆ Back to Top](#table-of-contents)**
@@ -722,325 +724,6 @@ public void Fire()
 ## 4. Asset Naming Conventions
 Naming conventions should be treated as law. A project that conforms to a naming convention is able to have its assets managed, searched, parsed, and maintained with incredible ease.
 
-Most things are prefixed with prefixes being generally an acronym of the asset type followed by an underscore.
-
-**Assets use lowercase**
-
-<a name="base-asset-name"></a>
-<a name="4.1"></a>
-### 4.1 Base Asset Name - `prefix_baseassetname_variant_suffix`
-All assets should have a _Base Asset Name_. A Base Asset Name represents a logical grouping of related assets. Any asset that is part of this logical group 
-should follow the the standard of  `prefix_baseassetname_variant_suffix`.
-
-Keeping the pattern `prefix_baseassetname_variant_suffix` in mind and using common sense is generally enough to warrant good asset names. Here are some detailed rules regarding each element.
-
-`prefix` and `suffix` are to be determined by the asset type through the following [Asset Name Modifier](#asset-name-modifiers) tables.
-
-`baseassetname` should be determined by short and easily recognizable name related to the context of this group of assets. For example, if you had a character named Bob, all of Bob's assets would have the `baseassetname` of `bob`.
-
-For unique and specific variations of assets, `variant` is either a short and easily recognizable name that represents logical grouping of assets that are a subset of an asset's base name. For example, if Bob had multiple skins these skins should still use `bob` as the `baseassetname` but include a recognizable `variant`. An 'Evil' skin would be referred to as `bob_evil` and a 'Retro' skin would be referred to as `bob_retro`.
-
-For unique but generic variations of assets, `variant` is a two digit number starting at `01`. For example, if you have an environment artist generating nondescript rocks, they would be named `rock_01`, `rock_02`, `rock_03`, etc. Except for rare exceptions, you should never require a three digit variant number. If you have more than 100 assets, you should consider organizing them with different base names or using multiple variant names.
-
-Depending on how your asset variants are made, you can chain together variant names. For example, if you are creating flooring assets for an Arch Viz project you should use the base name `flooring` with chained variants such as `flooring_marble_01`, `flooring_maple_01`, `flooring_tile_squares_01`.
-
-<a name="1.1-examples"></a>
-#### 4.1 Examples
-
-##### 4.1e1 Bob
-
-| Asset Type              | Asset Name                                                 |
-| ----------------------- | ---------------------------------------------------------- |
-| Skeletal Mesh           | sk_bob                                                     |
-| Material                | m_bob                                                      |
-| Texture (Diffuse/Albedo)| t_bob_d                                                    |
-| Texture (Normal)        | t_bob_n                                                    |
-| Texture (Evil Diffuse)  | t_bob_evil_d                                               |
-
-##### 4.1e2 Rocks
-
-| Asset Type              | Asset Name                                                 |
-| ----------------------- | ---------------------------------------------------------- |
-| Static Mesh (01)        | sm_rock_01                                                  |
-| Static Mesh (02)        | sm_rock_02                                                  |
-| Static Mesh (03)        | sm_rock_03                                                  |
-| Material                | m_rock                                                     |
-| Material Instance (Snow)| mi_rock_snow                                               |
-
-<a name="asset-name-modifiers"></a>
-### 4.2 Asset Name Modifiers
-
-When naming an asset use these tables to determine the prefix and suffix to use with an asset's [Base Asset Name](#base-asset-name).
-
-#### Sections
-
-> 4.2.1 [Most Common](#anc-common)
-
-> 4.2.2 [Animations](#anc-animations)
-
-> 4.2.3 [Artificial Intelligence](#anc-ai)
-
-> 4.2.4 [Prefabs](#anc-prefab)
-
-> 4.2.5 [Materials](#anc-materials)
-
-> 4.2.6 [Textures](#anc-textures)
-
-> 4.2.7 [Miscellaneous](#anc-misc)
-
-> 4.2.8 [Physics](#anc-physics)
-
-> 4.2.9 [Sound](#anc-sounds)
-
-> 4.2.10 [User Interface](#anc-ui)
-
-> 4.2.11 [Effects](#anc-effects)
-
-<a name="anc-common"></a>
-#### 4.2.1 Most Common
-
-| Asset Type              | Prefix     | Suffix     | Notes                            |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| Level / Scene           |  *          |            | [Should be in a folder called Levels.](#2.4) e.g. `Levels/a4_c17_parking_garage.unity` |
-| Level (Persistent)      |            | _p         |                                  |
-| Level (Audio)           |            | _audio     |                                  |
-| Level (Lighting)        |            | _lighting  |                                  |
-| Level (Geometry)        |            | _geo       |                                  |
-| Level (Gameplay)        |            | _gameplay  |                                  |
-| Prefab                  | pf_        |            |                                  |
-| Material                | m_         |            |                                  |
-| Static Mesh             | sm_        |            |                                  |
-| Skeletal Mesh           | sk_        |            |                                  |
-| Texture                 | t_         | _?         | See [Textures](#anc-textures)    |
-| Particle System         | ps_        |            |                                  |
-
-<a name="anc-animations"></a>
-#### 4.2.2 Animations
-| Asset Type              | Prefix     | Suffix     | Notes                            |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| Animation Clip          | a_         |            |                                  |
-| Animation Controller    | ac_        |            |                                  |
-| Avatar Mask             | am_        |            |                                  |
-| Morph Target            | mt_        |            |                                  |
-| Rig                     | rig_       |            |                                  |
-| Skeletal Mesh           | sk_        |            |                                  |
-| Skeleton                | skel_      |            |                                  |
-
-<a name="anc-ai"></a>
-#### 4.2.3 Artificial Intelligence
-
-| Asset Type              | Prefix     | Suffix     | Notes                            |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| AI Controller           | aic_       |            |                                  |
-| Behavior Tree           | bt_        |            |                                  |
-| Blackboard              | bb_        |            |                                  |
-| Decorator               | btdecorator_ |          |                                  |
-| Service                 | btservice_ |            |                                  |
-| Task                    | bttask_    |            |                                  |
-| Environment Query       | eqs_       |            |                                  |
-| EnvQueryContext         | eqs_       | context    |                                  |
-
-<a name="anc-prefab"></a>
-#### 4.2.4 Prefabs
-
-| Asset Type              | Prefix     | Suffix     | Notes                            |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| Prefab Instance         | pi_       |            |                                  |
-| Prefab                  | p_        |            |                                  |
-| Scriptable Object       | so_        |            |                                  |
-
-<a name="anc-materials"></a>
-#### 4.2.5 Materials
-| Asset Type              | Prefix     | Suffix     | Notes                            |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| Material                | m_         |            |                                  |
-| Material (Post Process) | pp_        |            |                                  |
-| Material Instance       | mi_        |            |                                  |
-| Physical Materials      | pm_        |            |                                  |
-
-<a name="anc-textures"></a>
-#### 4.2.6 Textures
-| Asset Type              | Prefix     | Suffix     | Notes                            |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| Texture                 | t_         |            |                                  |
-| Texture (Diffuse/Albedo/Base Color)| t_ | _d      |                                  |
-| Texture (Normal)        | t_         | _n         |                                  |
-| Texture (Roughness)     | t_         | _r         |                                  |
-| Texture (Alpha/Opacity) | t_         | _a         |                                  |
-| Texture (Ambient Occlusion) | t_     | _o         |                                  |
-| Texture (Bump)          | t_         | _b         |                                  |
-| Texture (Emissive)      | t_         | _e         |                                  |
-| Texture (Mask)          | t_         | _m         |                                  |
-| Texture (Specular)      | t_         | _s         |                                  |
-| Texture (Packed)        | t_         | _*         | See notes below about [packing](#anc-textures-packing). |
-| Texture Cube            | tc_        |            |                                  |
-| Media Texture           | mt_        |            |                                  |
-| Render Target           | rt_        |            |                                  |
-| Cube Render Target      | rtc_       |            |                                  |
-| Texture Light Profile   | tlp        |            |                                  |
-
-<a name="anc-textures-packing"></a>
-#### 4.2.6.1 Texture Packing
-It is common practice to pack multiple layers of texture data into one texture. An example of this is packing Emissive, Roughness, Ambient Occlusion together as the Red, Green, and Blue channels of a texture respectively. To determine the suffix, simply stack the given suffix letters from above together, e.g. `_ero`.
-
-> It is generally acceptable to include an Alpha/Opacity layer in your Diffuse/Albedo's alpha channel and as this is common practice, adding `a` to the `_d` suffix is optional.
-
-Packing 4 channels of data into a texture (RGBA) is not recommended except for an Alpha/Opacity mask in the Diffuse/Albedo's alpha channel as a texture with an alpha channel incurs more overhead than one without.
-<a name="anc-misc"></a>
-#### 4.2.7 Miscellaneous
-
-| Asset Type              | Prefix     | Suffix     | Notes                            |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| Float Curve             | curve_     | _float     |                                  |
-| Vector Curve            | curve_     | _vector    |                                  |
-
-<a name="anc-physics"></a>
-#### 4.2.8 Physics
-
-| Asset Type              | Prefix     | Suffix     | Notes                            |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| Physical Material       | pm_        |            |                                  |
-
-<a name="anc-sounds"></a>
-<a name="1.2.10"></a>
-#### 4.2.9 Sounds
-
-| Asset Type              | Prefix     | Suffix     | Notes                            |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| Audio Clip              | a_         |            |                                  |
-| Audio Mixer             | mix_       |            |                                  |
-| Dialogue Voice          | dv_        |            |                                  |
-| Audio Class             |            |            | No prefix/suffix. Should be put in a folder called AudioClasses |
-
-<a name="anc-ui"></a>
-#### 4.2.10 User Interface
-| Asset Type              | Prefix     | Suffix     | Notes                            |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| Font                    | font_      |            |                                  |
-
-<a name="anc-effects"></a>
-#### 4.2.11 Effects
-| Asset Type              | Prefix     | Suffix     | Notes                            |
-| ----------------------- | ---------- | ---------- | -------------------------------- |
-| Particle System         | ps_        |            |                                  |
-| Material (Post Process) | pp_        |            |                                  |
-**[⬆ Back to Top](#table-of-contents)**
-
-<a name="assetworkflow"></a>
-<a name="5"></a>
-## 5. Asset Workflows
-
-This section describes best practices for creating assets usable in Unity.
-
-<a name="toc"></a>
-### Sections
-
-> 5.1 [Art Asset Best Practices](#artassets)
-> 5.2 [3ds Max](#3dsmax)
-
-<a name="artassets"></a>
-### 5.1 Art Asset Best Practices
-
-#### Textures
-
-* Textures follow the [naming convention](#anc-textures) found above. 
-* They are a power of two (For example, 512 x 512 or 256 x 1024).
-* Use Texture Atlases wherever possible.
-* 3D software should point to the Unity project textures for consistency when you save or export.
-* It is better to resize the texture in Photoshop then to use Unity’s compression options when the in game texture resolution is already known. This reduces the file size and import time of the texture into Unity.
-* When working with a high-resolution source PSD outside your Unity project use the same name for both the high-resolution and the imported Unity file. This allows quick iteration when swapping between the 2 textures.
-
-More information for importing textures can be found here: [https://docs.unity3d.com/Manual/ImportingTextures.html](https://docs.unity3d.com/Manual/ImportingTextures.html)
-
-Textures requiring the use of a Alpha channel should follow this guide: [https://docs.unity3d.com/Manual/HOWTO-alphamaps.html](https://docs.unity3d.com/Manual/HOWTO-alphamaps.html)
-
-##### Texture File Format
-
-All textures should be of the .PSD format. No layers should be included and only one Alpha channel in the imported file.
-
-**[⬆ Back to Top](#table-of-contents)**
-
-<a name="3dsmax"></a>
-### 5.2 3ds Max
-
-Unity guide on importing from 3ds Max:
-https://docs.unity3d.com/2017.4/Documentation/Manual/HOWTO-ImportObjectMax.html
-
-#### Setting up 3ds Max
-
-Unity uses 1 unit = 1 meter. Setup 3ds Max to use Meters by going to ```Customize/Units Setup/System Unit Setup``` and set to 1 Unit = 1 Meter. Using the correct scale is very important for correct Physics / GI / and VR interaction.
-
-Animation frame rate in 3ds Max should be set to 30fps. The ```Time Configuration``` dialog box has 3ds Max's FPS settings
-
-##### Working with Small Objects
-
-* Set ```Customize > Customize User Interface > Mouse Wheel Zoom Increment``` to 0.1m to stop over zooming
-
-* Turn on Viewport Clipping and set the slider on the side of the viewport to be able to zoom in on small meshes. (https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/sfdcarticles/sfdcarticles/Viewport-Clipping.html)
-
-#### Modeling in 3ds Max
-
-* Follow the naming convention
-* Avoid super long thin triangles (helps with proper GI)
-* Use Area and Angle Weighted Mesh Normals (Unity Import Setting or Create in 3ds Max)
-
-#### Exporting from 3ds Max into Unity
-
-Models created in 3ds Max use a different coordinate system then Unity. Models need to have their pivot point rotated +90 degrees on the X axis to import into Unity correctly.
-
-To do this quickly, open the MaxScript editor, paste this code and select and drag this code on to a Toolbar in 3ds Max to create a button that will run this script. It applies a Xform modifier to rotate the pivot before exporting.
-```
-fn RotateCreationPivot obj rot =
-(
-select obj
-modPanel.addModToSelection (XForm ()) ui:on
-obj.modifiers[#XForm].gizmo.rotation += rot as quat
-rotate obj (inverse rot as quat)
-)
-RotateCreationPivot $ (eulerToQuat(eulerAngles 90 0 0))
-```
-* Units > Automatic (Unless scene is not in Meters)
-* Up Axis > Y
-
-Script to rotate all objects in 3ds Max scene for export
-```
-(
-    mapped fn ProcessObjectsForUnity node =
-    (
-        resetxform node
-        tm = rotatexmatrix 90
-        tm.row4 = node.pos
-        node.transform = tm
-        node.objectoffsetrot = eulerangles -90 0 0
-    )
-    
-    ProcessObjectsForUnity geometry
-)
-```
-* Batch Exporter for 3ds Max (http://www.strichnet.com/improving-the-fbx-workflow-between-3ds-max-and-unity3d/)
-
-##### Exporting CAT Animation to FBX
-Bind normal bones to the CAT rig for use in skinning and exporting
-
-###### Bind Pose
-Set Motion Panel/Layer Manager/"Setup/Animation Mode" Toggle to ```Red```
-Select only the bones and the mesh you wish to export
-Export naming: ModelName.FBX
-
-###### Animation
-Set Motion Panel/Layer Manager/"Setup/Animation Mode" to ```Green```
-Select ONLY the bones required in your hierarchy (These should match the exact same bones used for Bind Pose), don't include the mesh.
-Export naming: ModelName@AnimationName.FBX
-The @ symbol is a special Unity naming convention allowing the animation to be bound to the Human.fbx in the Unity editor
-
-#### Importing from 3ds Max into Unity
-
-If importing only animation or bones from a FBX: 
-* Set ```Preserve Hierarchy Model``` import option to ```True```
-* Set ```Rig > Avatar Definition``` to ```Copy From Other Avatar```
-
-MaxListener Window, set width and height of selected bones, maybe objects too?
-$.width = 0.01
-$.height = 0.01
+WIP
 
 **[⬆ Back to Top](#table-of-contents)**
