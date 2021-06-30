@@ -90,49 +90,37 @@ In this style, we will be using a structure that relies more on filtering and se
 <pre>
 Assets
     <a href="#structure-top-level">ProjectName</a>
-            Characters
-            FX
+            Code
+	    	CoreInstaller
+			Entity
+			Interactor
+		MiniGame1
+			Entity
+			Interactor
+			Gateway
+			Presentors
+		Ui
+			Presentors
+			Gateway
+            Content
                 Vehicles
                     Abilities
                         IonCannon
                             (Particle Systems, Textures)
                 Weapons
-            Gameplay
-                Characters
-                Equipment
-                Input
-                Vehicles
-                    Abilities
-                    Air
+		Enviroment
+		    Prefabs
+                Lighting
+                    HDRI
+                    Lut
+                    Textures
+                Shaders
+                Sound
+                    Characters
+                    Vehicles
                         TieFighter
-                            (Models, Textures, Materials, Prefabs)
-            <a href="#structure-levels">Levels</a>
-                Frontend
-                Act1
-                    Level1
-            Lighting
-                HDRI
-                Lut
-                Textures
-            Objects
-                Architecture (Single use big objects)
-                    DeathStar
-                Props (Repeating objects to fill a level)
-                    ObjectSets
-                        DeathStar
-            Scripts
-                AI
-                Gameplay
-                    Input
-                Tools
-            Shaders
-            Sound
-                Characters
-                Vehicles
-                    TieFighter
-                        Abilities
-                            Afterburners
-                Weapons
+                            Abilities
+                                Afterburners
             UI
                 Art
                     Buttons
@@ -143,7 +131,8 @@ Assets
         DeveloperName
             (Work in progress assets)
     Plugins
-    3rd Party SDK  
+    3rd Party SDKs
+    TextMeshPro
 </pre>
 
 The reasons for this structure are listed in the following sub-sections.
