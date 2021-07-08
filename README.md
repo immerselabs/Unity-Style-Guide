@@ -13,8 +13,7 @@ http://www.arreverie.com/blogs/unity3d-best-practices-folder-structure-source-co
 > 1. [Introduction](#introduction)
 > 1. [Project Structure](#structure)
 > 1. [Scripts](#scripts)
-> 1. [Asset Naming Conventions](#anc)
-> 1. [Asset Workflows](#assetworkflow)
+> 1. [Git Usage](#gitusage)
 
 <a name="introduction"></a>
 ## 1. Introduction
@@ -719,11 +718,12 @@ public void Fire()
 ```
 **[⬆ Back to Top](#table-of-contents)**
 
-<a name="anc"></a>
+<a name="gitusage"></a>
 <a name="4"></a>
-## 4. Asset Naming Conventions
-Naming conventions should be treated as law. A project that conforms to a naming convention is able to have its assets managed, searched, parsed, and maintained with incredible ease.
+## 4. Git Usage
 
-WIP
+### Git Commits
+
+https://chris.beams.io/posts/git-commit/
 
 **[⬆ Back to Top](#table-of-contents)**
